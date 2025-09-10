@@ -1,0 +1,51 @@
+<%- include('partials/header.ejs') %>
+
+<div class="container">
+  <h2>Add a New Book</h2>
+
+  <form action="/add" method="POST">
+  
+    <label>
+      Title:<br>
+      <input type="text" name="newTitle" required autocomplete="off">
+    </label>
+    <br>
+
+    <label>
+      Author:<br>
+      <input type="text" name="newAuthor" required autocomplete="off">
+    </label>
+    <br>
+
+    <label>
+      ISBN   </br><small><a href="https://openlibrary.org/"> 'click here to find the books isbn'</a></small><br>
+      <input type="text" name="newisbn" required autocomplete="off">
+    </label>
+    <br>
+
+    <label>
+      Write Your Notes:<br>
+      <textarea name="newBookReview" cols="30" rows="5" required autocomplete="off"></textarea>
+    </label>
+    <br>
+
+    <label>
+      Rating:<br>
+      <input type="number" name="newBookRating" min="1" max="10" required>
+    </label>
+    <br>
+
+    <label>
+      Date Read:<br>
+      <input type="date" name="newDateRead" required autocomplete="off">
+    </label>
+    <br><br>
+
+    <button type="submit" class="scndbtn">Add Book</button>
+    <a href="/" class="btn" style="margin-left: 15px;">Back To Library</a>
+  </form>
+
+
+</div>
+
+<%- include('partials/footer.ejs') %>

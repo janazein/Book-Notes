@@ -1,0 +1,78 @@
+<%- include('partials/header.ejs'); -%>
+
+<main>
+  <section class="container">
+     <section class="hero">
+        <div class="hero__copy">
+          <span class="eyebrow">Readwell</span>
+          <h1>Add Your Own Books & Notes<br>To Keep Track of Your<br>Reading Journey.</h1>
+          <a class="btn" href="/add">Add Your Book</a>
+        </div>
+        <div class="hero__art">
+          <img src="/hero-tab-1.png" alt="">
+          <img src="/hero-tab-2.png" alt="">
+        </div>
+        <div class="hero__bg hero__bg--left"></div>
+        <div class="hero__bg hero__bg--right"></div>
+      </section>
+
+      <section class="section container">
+       <div class="section-header">
+        <h2>Latest Books</h2>
+        <p>i've added the books i've read lately. The user can edit, delete or change the rating and notes based on their prefrences.</p>
+      </div>
+
+  <div class="carousel">
+    <div class="book-grid cols-4">
+    <% (books || []).forEach(b => {
+         const title = b.title || 'Untitled';
+         const truncated = title.length > 15 ? title.substring(0, 15) + '…' : title;
+         const author = b.author || 'Unknown';
+         const rating = typeof b.rating === 'number' ? b.rating : null;
+         const coverSrc = b.isbn
+           ? `https://covers.openlibrary.org/b/isbn/${b.isbn}-L.jpg`
+           : (b.cover_url || '/placeholder.jpg');
+         const reviewPreview = (b.review || '').length > 150
+           ? (b.review || '').substring(0, 15) + '…'
+           : (b.review || '');
+    %>
+      <article class="card-vert book-card">
+        <figure class="cover">
+          <img src="<%= coverSrc %>" alt="Cover of <%= title %>">
+        </figure>
+
+        <h4 class="title"><%= truncated %></h4>
+        <div class="meta"><%= author %></div>
+
+        <% if (reviewPreview) { %>
+          <p class="book-card__review">
+            <a href="/review/<%= b.id %>">“<%= reviewPreview %>”</a>
+          </p>
+        <% } %>
+
+        <% if (rating !== null) { %>
+          <div class="rating">
+            <span>★ ★ ☆</span>
+            <small><%= rating %> /10</small>
+          </div>
+        <% } %>
+
+        <div class="book-actions">
+          <form action="/edit/<%= b.id %>" method="GET" class="action">
+            <button type="submit" class="btn" aria-label="Edit <%= title %>">Edit</button>
+          </form>
+          <form action="/delete" method="POST" class="action" onsubmit="return confirm('Delete this book?');">
+            <input type="hidden" name="deleteBookId" value="<%= b.id %>">
+            <button type="submit" class="btn" aria-label="Delete <%= title %>">Delete</button>
+          </form>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+  </div>
+</section>
+</main>
+
+
+<%- include('partials/footer.ejs'); -%>
+
