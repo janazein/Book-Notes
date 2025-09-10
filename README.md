@@ -49,10 +49,10 @@ cd Book-Notes
 npm install
 
 ## 3. Setup Database
-1- Create a PostgreSQL database (e.g. booknotes)
-2- Run schema:
+### a. Create a PostgreSQL database (e.g. booknotes)
+### b. Run schema:
 psql -d booknotes -f db/schema.sql
-3- Create .env file with:
+### c. Create .env file with:
 PG_USER=yourusername
 PG_PASSWORD=yourpassword
 PG_HOST=localhost
